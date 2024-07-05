@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
 public class SeleniumConfiguration {
     @PostConstruct
     void postConstruct(){
-        System.setProperty("webdriver.chrome.driver", "D:\\Users\\Deian\\Documents\\NetBeansProjects\\selenium\\src\\main\\resources\\drivers\\chromedriver-win64\\chromedriver.exe");
+        String path = System.getProperty("user.dir");
+        System.setProperty("webdriver.chrome.driver", path + "\\src\\main\\resources\\drivers\\chromedriver-win64\\chromedriver.exe");
     }
         
     @Bean

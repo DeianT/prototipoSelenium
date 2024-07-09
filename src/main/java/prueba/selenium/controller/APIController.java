@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import prueba.selenium.service.GitHubService;
 import prueba.selenium.service.ScraperService;
 
 @CrossOrigin(origins = {"http://127.0.0.1:5500/"})
@@ -16,6 +17,9 @@ import prueba.selenium.service.ScraperService;
 public class APIController {
     @Autowired
     private ScraperService service;
+    
+    @Autowired
+    private GitHubService gitHubService;
     
     @GetMapping("/lista/{palabra}")
     public List<String> obtenerListaPalabras(@PathVariable String palabra){
@@ -31,5 +35,24 @@ public class APIController {
     @ResponseBody
     public String obtenerPalabras(@PathVariable String palabra){
         return service.scrapeString(palabra);
+    }
+    
+    @GetMapping("/git")
+    @ResponseBody
+    public String gitHub(){
+        return gitHubService.scrapeString();
+    }
+    
+    @GetMapping("/search/{palabra}")
+    public List<String> search(@PathVariable String palabra){
+        List<WebElement> list = gitHubService.search(palabra);
+        List<String> titles = new ArrayList<>();
+        for(WebElement word: list){
+            if("h3".equals(word.getTagName()))
+                titles.add(word.getText());
+            else
+                titles.add(word.getAttribute("href"));
+        }
+        return titles;
     }
 }

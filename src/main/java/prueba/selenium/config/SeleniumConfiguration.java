@@ -22,4 +22,13 @@ public class SeleniumConfiguration {
         
         return new ChromeDriver(options);
     }
+    
+    @Bean
+    public ChromeDriver driver1(){
+        final ChromeOptions options = new ChromeOptions();
+        //para que no se muestre la ventana de chrome
+        options.addArguments("--headless");
+        
+        return new ChromeDriver(options);
+    }
 }

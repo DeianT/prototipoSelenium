@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import prueba.selenium.model.Pregunta;
 import prueba.selenium.service.GitHubService;
 import prueba.selenium.service.ScraperService;
 
@@ -44,6 +45,7 @@ public class APIController {
     }
     
     @GetMapping("/search/{palabra}")
+    @ResponseBody
     public List<String> search(@PathVariable String palabra){
         List<WebElement> list = gitHubService.search(palabra);
         List<String> titles = new ArrayList<>();
@@ -54,5 +56,10 @@ public class APIController {
                 titles.add(word.getAttribute("href"));
         }
         return titles;
+    }
+    
+    @GetMapping("/preguntas/{palabra}")
+    public List<Pregunta> obtenerPreguntas(@PathVariable String palabra){
+        return gitHubService.preguntas(palabra);
     }
 }

@@ -50,10 +50,8 @@ public class APIController {
         List<WebElement> list = gitHubService.search(palabra);
         List<String> titles = new ArrayList<>();
         for(WebElement word: list){
-            if("h3".equals(word.getTagName()))
-                titles.add(word.getText());
-            else
-                titles.add(word.getAttribute("href"));
+            titles.add(word.getText());
+            titles.add(word.getAttribute("href"));
         }
         return titles;
     }

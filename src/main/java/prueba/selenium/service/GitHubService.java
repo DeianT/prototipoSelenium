@@ -1,13 +1,11 @@
 package prueba.selenium.service;
 
-import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Service;
 import prueba.selenium.model.Pregunta;
 
@@ -36,15 +34,9 @@ public class GitHubService {
         driver.get(URL + "questions/tagged/" + busqueda);
         
         final WebElement questionsDiv = driver.findElement(By.id("questions"));
-        final List<WebElement> titles = questionsDiv.findElements(By.tagName("h3"));
-//        final List<WebElement> links = questionsDiv.findElements(By.cssSelector("a.s-link"));
-        final List<WebElement> list = new ArrayList<>();
-        for(WebElement h3: titles){
-            list.add(h3);
-            list.add(h3.findElement(By.cssSelector("a.s-link")));
-        }
+        final List<WebElement> links = questionsDiv.findElements(By.cssSelector("a.s-link"));
         
-        return list;
+        return links;
     }
     
     public List<Pregunta> preguntas(String busqueda){

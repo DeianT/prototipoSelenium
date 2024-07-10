@@ -1,6 +1,5 @@
 package prueba.selenium.service;
 
-import jakarta.annotation.PostConstruct;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.openqa.selenium.By;

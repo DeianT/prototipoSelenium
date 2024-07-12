@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import prueba.selenium.model.Pregunta;
 import prueba.selenium.service.GitHubService;
 import prueba.selenium.service.ScraperService;
+import prueba.selenium.service.StockService;
 
 @CrossOrigin(origins = {"http://127.0.0.1:5500/"})
 @RestController
@@ -21,6 +22,9 @@ public class APIController {
     
     @Autowired
     private GitHubService gitHubService;
+    
+    @Autowired
+    private StockService stockService;
     
     @GetMapping("/lista/{palabra}")
     public List<String> obtenerListaPalabras(@PathVariable String palabra){
@@ -59,5 +63,10 @@ public class APIController {
     @GetMapping("/preguntas/{palabra}")
     public List<Pregunta> obtenerPreguntas(@PathVariable String palabra){
         return gitHubService.preguntas(palabra);
+    }
+    
+    @GetMapping("/stocks")
+    public void printStocks(){
+        stockService.scrapeStocks();
     }
 }

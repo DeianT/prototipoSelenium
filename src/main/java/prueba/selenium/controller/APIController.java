@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import prueba.selenium.model.Oferta;
 import prueba.selenium.model.Pregunta;
 import prueba.selenium.service.GitHubService;
 import prueba.selenium.service.ScraperService;
+import prueba.selenium.service.SteamService;
 import prueba.selenium.service.StockService;
 
 @CrossOrigin(origins = {"http://127.0.0.1:5500/"})
@@ -25,6 +27,9 @@ public class APIController {
     
     @Autowired
     private StockService stockService;
+    
+    @Autowired
+    private SteamService steamService;
     
     @GetMapping("/lista/{palabra}")
     public List<String> obtenerListaPalabras(@PathVariable String palabra){
@@ -68,5 +73,10 @@ public class APIController {
     @GetMapping("/stocks")
     public void printStocks(){
         stockService.scrapeStocks();
+    }
+    
+    @GetMapping("/steam")
+    public List<Oferta> obtenerOfertas(){
+        return steamService.obtenerOfertas();
     }
 }

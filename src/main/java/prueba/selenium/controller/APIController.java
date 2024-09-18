@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import prueba.selenium.model.Oferta;
 import prueba.selenium.model.Pregunta;
-import prueba.selenium.service.GitHubService;
+import prueba.selenium.service.StackService;
 import prueba.selenium.service.ScraperService;
 import prueba.selenium.service.SteamService;
 import prueba.selenium.service.StockService;
@@ -23,7 +23,7 @@ public class APIController {
     private ScraperService service;
     
     @Autowired
-    private GitHubService gitHubService;
+    private StackService stackService;
     
     @Autowired
     private StockService stockService;
@@ -47,16 +47,16 @@ public class APIController {
         return service.scrapeString(palabra);
     }
     
-    @GetMapping("/git")
+    @GetMapping("/stack")
     @ResponseBody
-    public String gitHub(){
-        return gitHubService.scrapeString();
+    public String stack(){
+        return stackService.scrapeTitulo();
     }
     
     @GetMapping("/search/{palabra}")
     @ResponseBody
     public List<String> search(@PathVariable String palabra){
-        List<WebElement> list = gitHubService.search(palabra);
+        List<WebElement> list = stackService.search(palabra);
         List<String> titles = new ArrayList<>();
         for(WebElement word: list){
             titles.add(word.getText());
@@ -67,7 +67,7 @@ public class APIController {
     
     @GetMapping("/preguntas/{palabra}")
     public List<Pregunta> obtenerPreguntas(@PathVariable String palabra){
-        return gitHubService.preguntas(palabra);
+        return stackService.preguntas(palabra);
     }
     
     @GetMapping("/stocks")

@@ -11,12 +11,12 @@ import prueba.selenium.model.Pregunta;
 
 @Service
 @AllArgsConstructor
-public class GitHubService {
+public class StackService {
     private static final String URL = "https://stackoverflow.com/";
     private final ChromeDriver driver;
     private final ChromeDriver driver1;
         
-    public String scrapeString(){
+    public String scrapeTitulo(){
         driver.get(URL);
         final WebElement title = driver.findElement(By.className("-title"));
         
@@ -40,6 +40,10 @@ public class GitHubService {
     }
     
     public List<Pregunta> preguntas(String busqueda){
+        /*
+        revisar cuando hay más de una palabra
+        https://stackoverflow.com/search?q=get+request
+        */
         driver.get(URL + "questions/tagged/" + busqueda);
         
         final WebElement questionsDiv = driver.findElement(By.id("questions"));

@@ -40,14 +40,10 @@ public class StackService {
     }
     
     public List<Pregunta> preguntas(String busqueda){
-        /*
-        revisar cuando hay más de una palabra
-        https://stackoverflow.com/search?q=get+request
-        */
-        driver.get(URL + "questions/tagged/" + busqueda);
+        driver.get(URL + "/search?q=" + busqueda);
         
-        final WebElement questionsDiv = driver.findElement(By.id("questions"));
-        final List<WebElement> titles = questionsDiv.findElements(By.tagName("h3"));
+        final WebElement divResultados = driver.findElement(By.className("flush-left"));
+        final List<WebElement> titles = divResultados.findElements(By.tagName("h3"));
         final List<Pregunta> preguntas = new ArrayList<>();
         
         for(WebElement h3: titles){
@@ -55,7 +51,7 @@ public class StackService {
             
             p.setTitulo(h3.getText());
             
-            String link = h3.findElement(By.cssSelector("a.s-link")).getAttribute("href");
+            String link = h3.findElement(By.tagName("a")).getAttribute("href");
             p.setEnlace(link);
             
             p.setContenido(obtenerParrafo(link));

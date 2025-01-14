@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import prueba.selenium.model.Oferta;
 import prueba.selenium.model.Pregunta;
 import prueba.selenium.service.StackService;
-import prueba.selenium.service.ScraperService;
+import prueba.selenium.service.WordsService;
 import prueba.selenium.service.SteamService;
 import prueba.selenium.service.StockService;
 
@@ -20,7 +20,7 @@ import prueba.selenium.service.StockService;
 @RestController
 public class APIController {
     @Autowired
-    private ScraperService service;
+    private WordsService wordsService;
     
     @Autowired
     private StackService stackService;
@@ -33,7 +33,7 @@ public class APIController {
     
     @GetMapping("/lista/{palabra}")
     public List<String> obtenerListaPalabras(@PathVariable String palabra){
-        List<WebElement> list = service.scrapeLista(palabra);
+        List<WebElement> list = wordsService.scrapeLista(palabra);
         List<String> words = new ArrayList<>();
         for(WebElement word: list){
             words.add(word.getText());
@@ -44,7 +44,7 @@ public class APIController {
     @GetMapping("/palabras/{palabra}")
     @ResponseBody
     public String obtenerPalabras(@PathVariable String palabra){
-        return service.scrapeString(palabra);
+        return wordsService.scrapeString(palabra);
     }
     
     @GetMapping("/stack")

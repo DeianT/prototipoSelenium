@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class ScraperService {
+public class WordsService {
     private static final String URL = "https://relatedwords.org/relatedto/";
     private final ChromeDriver driver;
     

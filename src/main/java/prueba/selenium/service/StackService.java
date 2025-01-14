@@ -23,7 +23,7 @@ public class StackService {
         return title.getText();
     }
     
-    public List<WebElement> search(String busqueda){
+    public List<WebElement> search(String busqueda){//eliminar
         //Esta forma necesita pasar un captcha
 //        driver.get(URL);
 //        final WebElement input = driver.findElement(By.cssSelector("input.s-input.s-input__search.js-search-field.wmn1"));

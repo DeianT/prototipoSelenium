@@ -31,6 +31,10 @@ public class APIController {
     @Autowired
     private SteamService steamService;
     
+    /**
+     * Endpoint que realiza scraping a RelatedWords
+     * @return Lista de String con las palabras
+     */
     @GetMapping("/lista/{palabra}")
     public List<String> obtenerListaPalabras(@PathVariable String palabra){
         List<WebElement> list = wordsService.scrapeLista(palabra);
@@ -41,12 +45,20 @@ public class APIController {
         return words;
     }
     
+    /**
+     * Endpoint que realiza scraping a RelatedWords
+     * @return String con las palabras separadas por coma
+     */
     @GetMapping("/palabras/{palabra}")
     @ResponseBody
     public String obtenerPalabras(@PathVariable String palabra){
         return wordsService.scrapeString(palabra);
     }
     
+    /**
+     * Endpoint que realiza scraping a StackOverflow
+     * @return String con el título
+     */
     @GetMapping("/stack")
     @ResponseBody
     public String stack(){
@@ -55,7 +67,7 @@ public class APIController {
     
     @GetMapping("/search/{palabra}")
     @ResponseBody
-    public List<String> search(@PathVariable String palabra){
+    public List<String> search(@PathVariable String palabra){//eliminar
         List<WebElement> list = stackService.search(palabra);
         List<String> titles = new ArrayList<>();
         for(WebElement word: list){
@@ -65,6 +77,11 @@ public class APIController {
         return titles;
     }
     
+    /**
+     * Endpoint que realiza scraping a StackOverflow
+     * @param palabra La búsqueda a realizar
+     * @return Lista con las preguntas
+     */
     @GetMapping("/preguntas/{palabra}")
     public List<Pregunta> obtenerPreguntas(@PathVariable String palabra){
         return stackService.preguntas(palabra);
@@ -75,6 +92,10 @@ public class APIController {
         stockService.scrapeStocks();
     }
     
+    /**
+     * Endpoint que realiza scraping a Steam
+     * @return List de Ofertas
+     */
     @GetMapping("/steam")
     public List<Oferta> obtenerOfertas(){
         return steamService.obtenerOfertas();

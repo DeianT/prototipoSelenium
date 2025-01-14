@@ -18,6 +18,10 @@ public class WordsService {
 //        scrape("car");
 //    }
     
+    /**
+     * Imprime por consola las palabras relacionadas a la búsqueda.
+     * @param value La palabra o frase a buscar
+     */
     public void scrape(final String value){
         driver.get(URL + value);
         final WebElement words = driver.findElement(By.className("words"));
@@ -26,6 +30,12 @@ public class WordsService {
         driver.quit();
     }
     
+    /**
+     * Obtiene las palabras relacionadas a la búsqueda y devuelve los elementos
+     * que la contienen
+     * @param value La palabra o frase a buscar
+     * @return List&ltWebElement&gt Elementos &lta&gt que contienen las palabras
+     */
     public List<WebElement> scrapeLista(String value){
         driver.get(URL + value);
         final WebElement words = driver.findElement(By.className("words"));
@@ -35,6 +45,12 @@ public class WordsService {
         return wordList;
     }
     
+    /**
+     * Obtiene las palabras relacionadas a la búsqueda, las concatena y devuelve 
+     * el String resultante.
+     * @param value La palabra o frase a buscar
+     * @return String Palabras separadas por coma
+     */
     public String scrapeString(final String value){
         driver.get(URL + value);
         final WebElement words = driver.findElement(By.className("words"));
